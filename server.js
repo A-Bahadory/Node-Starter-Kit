@@ -10,39 +10,38 @@ const app = express();
 //   res.send({ movies });
 // });
 
-// app.get("/movies", (req, res) => {
-//   console.log("hitting the movies endpoint");
-//   //read movies data from movies.json
-//   fs.readFile("./movies.json", "utf8").then((movies) => {
-//     //change string into object
-//     movies = JSON.parse(movies);
-//     console.log({ movies });
-//     res.status(200).send({ movies });
-//   });
-// });
-
 app.get("/movies", (req, res) => {
   console.log("hitting the movies endpoint");
-  // Read movies data from movies.json
-  fs.readFile("./movies.json", "utf8", (err, data) => {
-    if (err) {
-      console.error("Error reading file:", err);
-      return res.status(500).send({ error: "Failed to read movies data" });
-    }
-
-    try {
-      // Parse the JSON string into a JavaScript object
-      const movies = JSON.parse(data);
-      // Log movies data to console (for debugging)
-      console.log({ movies });
-      // Send movies data as a response with HTTP status 200 (OK)
-      res.status(200).send({ movies });
-    } catch (error) {
-      console.error("Error parsing JSON:", error);
-      res.status(500).send({ error: "Failed to parse movies data" });
-    }
+  //read movies data from movies.json
+  fs.readFile("./movies.json", "utf8").then((movies) => {
+    //change string into object
+    movies = JSON.parse(movies);
+    res.status(300).send({ movies });
   });
 });
+
+// app.get("/movies", (req, res) => {
+//   console.log("hitting the movies endpoint");
+//   // Read movies data from movies.json
+//   fs.readFile("./movies.json", "utf8", (err, data) => {
+//     if (err) {
+//       console.error("Error reading file:", err);
+//       return res.status(500).send({ error: "Failed to read movies data" });
+//     }
+
+//     try {
+//       // Parse the JSON string into a JavaScript object
+//       const movies = JSON.parse(data);
+//       // Log movies data to console (for debugging)
+//       console.log({ movies });
+//       // Send movies data as a response with HTTP status 200 (OK)
+//       res.status(200).send({ movies });
+//     } catch (error) {
+//       console.error("Error parsing JSON:", error);
+//       res.status(500).send({ error: "Failed to parse movies data" });
+//     }
+//   });
+// });
 
 app.post("/movies", (req, res) => {
   const newMovies = req.body;
